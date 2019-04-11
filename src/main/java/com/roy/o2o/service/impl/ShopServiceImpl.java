@@ -3,6 +3,7 @@ package com.roy.o2o.service.impl;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -15,6 +16,7 @@ import com.roy.o2o.service.ShopService;
 import com.roy.o2o.util.ImageUtil;
 import com.roy.o2o.util.PathUtil;
 
+@Service
 public class ShopServiceImpl implements ShopService {
 
 	@Autowired
