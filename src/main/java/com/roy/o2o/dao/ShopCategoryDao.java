@@ -2,13 +2,12 @@ package com.roy.o2o.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.roy.o2o.entity.ShopCategory;
 
-public class ShopCategoryDao {
+public interface ShopCategoryDao {
 
-	public List<ShopCategory> queryShopCategory(ShopCategory shopCategory) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	List<ShopCategory> queryShopCategory(@Param("shopCategoryCondition")ShopCategory shopCategory);
 
 }

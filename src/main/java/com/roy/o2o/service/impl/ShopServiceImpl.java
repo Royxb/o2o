@@ -1,13 +1,11 @@
 package com.roy.o2o.service.impl;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.roy.o2o.dao.ShopDao;
 import com.roy.o2o.dto.ShopExecution;

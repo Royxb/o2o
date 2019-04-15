@@ -1,10 +1,9 @@
 package com.roy.o2o.web.shopadmin;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,20 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roy.o2o.dto.ShopExecution;
+import com.roy.o2o.entity.Area;
 import com.roy.o2o.entity.PersonInfo;
 import com.roy.o2o.entity.Shop;
+import com.roy.o2o.entity.ShopCategory;
 import com.roy.o2o.enums.ShopStateEnum;
 import com.roy.o2o.exceptions.ShopOperationException;
+import com.roy.o2o.service.AreaService;
+import com.roy.o2o.service.ShopCategoryService;
 import com.roy.o2o.service.ShopService;
 import com.roy.o2o.util.HttpServletRequestUtil;
-import com.roy.o2o.util.ImageUtil;
-import com.roy.o2o.util.PathUtil;
 
 @Controller
 @RequestMapping("/shopadmin")
@@ -33,6 +36,32 @@ public class ShopManagementController {
 	
 	@Autowired
 	private ShopService shopService;
+	
+	@Autowired
+	private ShopCategoryService shopCategoryService;
+	
+	@Autowired
+	private AreaService areaService;
+	
+	@RequestMapping(value = "/getshopinitinfo",method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopInitInfo(){
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		List<ShopCategory> shopCategoryList = new ArrayList<ShopCategory>();
+		List<Area> areaList  = new ArrayList<Area>();
+		try {
+			shopCategoryList = shopCategoryService.getShopCategory(new ShopCategory());
+			areaList = areaService.getAreaList();
+			modelMap.put("shopCategoryList",shopCategoryList);
+			modelMap.put("areaList",areaList);
+			modelMap.put("success", true);
+		} catch (Exception e) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", e.getMessage());
+			return modelMap;
+		}
+		return modelMap;
+	}
 	
 	@RequestMapping(value = "registershop")
 	private Map<String, Object> registerShop(HttpServletRequest request) {
