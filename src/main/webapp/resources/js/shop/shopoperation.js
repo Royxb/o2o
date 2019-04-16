@@ -4,7 +4,7 @@
 $(function(){
 	var initUrl = '/o2o/shopadmin/getshopinitinfo';
 	var registerShopUrl = '/o2o/shopadmin/registershop';
-	alert(initUrl);
+//	alert(initUrl);
 	getShopInitInfo();
 	function getShopInitInfo(){
 		$.getJSON(initUrl,function(data){
