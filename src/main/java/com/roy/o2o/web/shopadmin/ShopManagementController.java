@@ -28,6 +28,7 @@ import com.roy.o2o.exceptions.ShopOperationException;
 import com.roy.o2o.service.AreaService;
 import com.roy.o2o.service.ShopCategoryService;
 import com.roy.o2o.service.ShopService;
+import com.roy.o2o.util.CodeUtil;
 import com.roy.o2o.util.HttpServletRequestUtil;
 
 @Controller
@@ -66,6 +67,12 @@ public class ShopManagementController {
 	@RequestMapping(value = "registershop")
 	private Map<String, Object> registerShop(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+		if (!CodeUtil.checkVerifyCode(request)) {	//验证码验证
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "输入了错误的验证码");
+			return modelMap;
+		}
 		//1.接收并转化相应的参数，包括店铺信息以及图片信息
 		String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
 		ObjectMapper mapper = new ObjectMapper();

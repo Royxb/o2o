@@ -20,12 +20,12 @@
 		</init-param>
 		<!-- 字体颜色 -->
 		<init-param>
-			<param-name>kaptcha.testproducer.font.color</param-name>
+			<param-name>kaptcha.textproducer.font.color</param-name>
 			<param-value>red</param-value>
 		</init-param>
 		<!-- 字体大小 -->
 		<init-param>
-			<param-name>kaptcha.testproducer.font.size</param-name>
+			<param-name>kaptcha.textproducer.font.size</param-name>
 			<param-value>43</param-value>
 		</init-param>
 		<!-- 图片宽度 -->
@@ -37,6 +37,26 @@
 		<init-param>
 			<param-name>kaptcha.image.height</param-name>
 			<param-value>50</param-value>
+		</init-param>
+		<!-- 干扰线的颜色 -->
+		<init-param>
+			<param-name>kaptcha.noise.color</param-name>
+			<param-value>black</param-value>
+		</init-param>
+		<!-- 字符个数 -->
+		<init-param>
+			<param-name>kaptcha.textproducer.char.length</param-name>
+			<param-value>4</param-value>
+		</init-param>
+		<!-- 使用字符 -->
+		<init-param>
+			<param-name>kaptcha.textproducer.char.string</param-name>
+			<param-value>ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</param-value>
+		</init-param>
+		<!-- 字体 -->
+		<init-param>
+			<param-name>kaptcha.textproducer.font.names</param-name>
+			<param-value>Arial</param-value>
 		</init-param>
 	</servlet>
 
@@ -51,6 +71,11 @@
 			<param-value>classpath:spring/spring-**.xml</param-value>
 		</init-param>
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>Kaptcha</servlet-name>
+		<!-- 默认匹配所有的请求 -->
+		<url-pattern>/Kaptcha</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring-dispatcher</servlet-name>
 		<!-- 默认匹配所有的请求 -->
