@@ -1,11 +1,17 @@
 package com.roy.o2o.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Date;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.roy.o2o.BaseTest;
+import com.roy.o2o.dto.ShopExecution;
 import com.roy.o2o.entity.Area;
 import com.roy.o2o.entity.PersonInfo;
 import com.roy.o2o.entity.Shop;
@@ -23,7 +29,7 @@ public class ShopServiceTest extends BaseTest {
 		Area area = new Area();
 		ShopCategory shopCategory = new ShopCategory();
 		owner.setUserId(1L);
-		area.setAreaId(2L);
+		area.setAreaId(2);
 		shopCategory.setShopCategoryId(1L);
 		
 		shop.setOwner(owner);
@@ -37,8 +43,9 @@ public class ShopServiceTest extends BaseTest {
 		shop.setLastEditTime(new Date());
 		shop.setEnableStatus(ShopStateEnum.CHECK.getState());
 		shop.setAdvice("审核中");
-//		CommonsMultipartFile shopImg = new MockMultipartFile(name, content);
-//		int effectedNum = shopService.addShop(shop, shopImg);
-//		assertEquals(1, effectedNum);
+		File shopImg = new File("C:\\Users\\DELL\\Desktop\\img26.jpg");
+		InputStream inputStream = new FileInputStream(shopImg);
+		ShopExecution shopExecution = shopService.addShop(shop, inputStream, shopImg.getName());
+		assertEquals(ShopStateEnum.CHECK.getState(), shopExecution.getState());
 	}
 }

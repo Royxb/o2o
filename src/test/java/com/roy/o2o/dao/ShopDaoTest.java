@@ -2,9 +2,7 @@ package com.roy.o2o.dao;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,7 +27,7 @@ public class ShopDaoTest extends BaseTest {
 		Area area = new Area();
 		ShopCategory shopCategory = new ShopCategory();
 		owner.setUserId(1L);
-		area.setAreaId(2L);
+		area.setAreaId(2);
 		shopCategory.setShopCategoryId(1L);
 		
 		shop.setOwner(owner);

@@ -3,6 +3,8 @@ package com.roy.o2o.service.impl;
 import java.io.InputStream;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,18 +23,21 @@ public class ShopServiceImpl implements ShopService {
 
 	@Autowired
 	private ShopDao shopDao;
-	
+
+	private static Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
+
 	@Override
 	@Transactional
 	public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) {
 
-		// 控制判断
+		// 空值判断
 		if (shop == null) {
 			return new ShopExecution(ShopStateEnum.NULL_SHOP);
 		}
-		try
-
-		{
+		logger.info(shopImgInputStream.toString());
+		logger.info(shop.getShopName());
+		logger.info(fileName);
+		try {
 			// 给店铺信息赋初始值
 			shop.setEnableStatus(0);
 			shop.setCreateTime(new Date());
@@ -46,8 +51,11 @@ public class ShopServiceImpl implements ShopService {
 				if (shopImgInputStream != null) {
 					// 存储图片
 					try {
-						addShopImg(shop, shopImgInputStream,fileName);
+						logger.info("Start ShopImg Add");
+						addShopImg(shop, shopImgInputStream, fileName);
+						logger.info("End ShopImg Add");
 					} catch (Exception e) {
+						logger.error(e.getMessage());
 						throw new ShopOperationException("addShopImg error:" + e.getMessage());
 					}
 					// 更新店铺的图片地址
@@ -58,15 +66,18 @@ public class ShopServiceImpl implements ShopService {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			throw new ShopOperationException("addShop error:" + e.getMessage());
 		}
 		return new ShopExecution(ShopStateEnum.CHECK, shop);
 	}
 
-	private void addShopImg(Shop shop, InputStream shopImgInputStream,String fileName) {
+	private void addShopImg(Shop shop, InputStream shopImgInputStream, String fileName) {
+		logger.info("Start addShopImg Add");
 		// 获取shop图片目录的相对值路径
 		String dest = PathUtil.getShopImagePath(shop.getShopId());
-		String shopImgAddr = ImageUtil.generateThumbnail(shopImgInputStream,fileName, dest);
+		logger.info(dest);
+		String shopImgAddr = ImageUtil.generateThumbnail(shopImgInputStream, fileName, dest);
 		shop.setShopImg(shopImgAddr);
 	}
 

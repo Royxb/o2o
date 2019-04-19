@@ -9,44 +9,46 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import org.apache.ibatis.javassist.expr.NewArray;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
 public class ImageUtil {
 
+	private static Logger logger = LoggerFactory.getLogger(ImageUtil.class);
+	// 获取classpath的绝对值路径
 	private static String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-
+	// 时间格式化的格式
 	private static final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+	// 随机数
 	private static final Random r = new Random();
 
-	/*
-	 * public static String generateThumbnail(CommonsMultipartFile thumbnail, String
-	 * targetAddr) {
-	 * 
-	 * String realFileName = getRandomFileName(); String extension =
-	 * getFileExtension(thumbnail); makeDirPath(targetAddr); String relativeAddr =
-	 * targetAddr + realFileName + extension; File dest = new
-	 * File(PathUtil.getImgBasePath() + relativeAddr); try {
-	 * Thumbnails.of(thumbnail.getInputStream()).size(200, 200)
-	 * .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath +
-	 * "loadingico.jpg")), 0.25f) .outputQuality(0.8f).toFile(dest); } catch
-	 * (IOException e) { e.printStackTrace(); } return relativeAddr; }
+	/**
+	 * 处理首页头图
+	 * @param thumbnailInputStream Spring自带的文件处理对象
+	 * @param fileName
+	 * @param targetAddr 图片存储路径
+	 * @return
 	 */
-
-	public static String generateThumbnail(InputStream thumbnailInputStream,String fileName, String targetAddr) {
+	public static String generateThumbnail(InputStream thumbnailInputStream, String fileName, String targetAddr) {
+		// 获取随机文件名，防止文件重名
 		String realFileName = getRandomFileName();
+		// 获取文件扩展名
 		String extension = getFileExtension(fileName);
+		// 在文件夹不存在时创建
+		makeDirPath(targetAddr);
 		String relativeAddr = targetAddr + realFileName + extension;
 		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
 		try {
-			Thumbnails.of(thumbnailInputStream).size(200, 200)
+			logger.info(thumbnailInputStream.toString());
+			logger.info(basePath);
+			Thumbnails.of(thumbnailInputStream).size(1200, 1200)
 					.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "loadingico.jpg")), 0.25f)
 					.outputQuality(0.8f).toFile(dest);
 		} catch (IOException e) {
+			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
 		return relativeAddr;
@@ -57,6 +59,7 @@ public class ImageUtil {
 	 * 
 	 * @param targetAddr
 	 */
+	@SuppressWarnings("unused")
 	private static void makeDirPath(String targetAddr) {
 		// 获取绝对路径
 		String realFileParentPath = PathUtil.getImgBasePath() + targetAddr;
@@ -88,12 +91,11 @@ public class ImageUtil {
 		return nowTimeStr + rannum;
 	}
 
-	/*
-	 * public static void main(String[] args) throws IOException { Thumbnails.of(new
-	 * File("C:/Users/DELL/Desktop/img26.jpg")).size(1920, 1200)
-	 * .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath +
-	 * "loadingico.jpg")), 0.25f)
-	 * .outputQuality(0.8f).toFile("C:/Users/DELL/Desktop/img26new.jpg"); ; }
-	 */
+	public static void main(String[] args) throws IOException {
+		Thumbnails.of(new File("C:/Users/DELL/Desktop/img26.jpg")).size(1920, 1200)
+				.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "loadingico.jpg")), 0.25f)
+				.outputQuality(0.8f).toFile("C:/Users/DELL/Desktop/img26new.jpg");
+		;
+	}
 
 }

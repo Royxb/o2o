@@ -1,7 +1,5 @@
 package com.roy.o2o.enums;
 
-import java.util.Iterator;
-
 public enum ShopStateEnum {
 	CHECK(0,"审核中"),
 	OFFLINE(-1,"非法店铺"),

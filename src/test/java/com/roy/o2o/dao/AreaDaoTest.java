@@ -37,7 +37,7 @@ public class AreaDaoTest extends BaseTest {
 	@Test
 	public void testUpdateArea() throws Exception {
 		Area area = new Area();
-		area.setAreaId(1L);
+		area.setAreaId(1);
 		area.setAreaName("南苑");
 		area.setLastEditTime(new Date());
 		int effectedNum = areaDao.updateArea(area);
