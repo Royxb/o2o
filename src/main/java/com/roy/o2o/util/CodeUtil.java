@@ -4,9 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 
 public class CodeUtil {
 	public static boolean checkVerifyCode(HttpServletRequest request) {
-		String verifyCodeExpcted = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+		// 获取图片中的校验码
+		String verifyCodeExpexted = (String) request.getSession()
+				.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+		// 获取输入的校验码
 		String verifyCodeActual = HttpServletRequestUtil.getString(request, "verifyCodeActual");
-		if (verifyCodeActual == null || !verifyCodeActual.equals(verifyCodeExpcted)) {
+		// 对比
+		if (verifyCodeActual == null || !verifyCodeActual.equalsIgnoreCase(verifyCodeExpexted)) {
 			return false;
 		}
 		return true;
