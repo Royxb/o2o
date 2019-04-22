@@ -34,9 +34,6 @@ public class ShopServiceImpl implements ShopService {
 		if (shop == null) {
 			return new ShopExecution(ShopStateEnum.NULL_SHOP);
 		}
-		logger.info(shopImgInputStream.toString());
-		logger.info(shop.getShopName());
-		logger.info(fileName);
 		try {
 			// 给店铺信息赋初始值
 			shop.setEnableStatus(0);
