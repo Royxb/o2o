@@ -59,7 +59,6 @@ public class ImageUtil {
 	 * 
 	 * @param targetAddr
 	 */
-	@SuppressWarnings("unused")
 	private static void makeDirPath(String targetAddr) {
 		// 获取绝对路径
 		String realFileParentPath = PathUtil.getImgBasePath() + targetAddr;
@@ -95,7 +94,24 @@ public class ImageUtil {
 		Thumbnails.of(new File("C:/Users/DELL/Desktop/img26.jpg")).size(1920, 1200)
 				.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "loadingico.jpg")), 0.25f)
 				.outputQuality(0.8f).toFile("C:/Users/DELL/Desktop/img26new.jpg");
-		;
 	}
 
+	/**
+	 * 判断storePath是文件的路径还是目录路径，
+	 * 如果storePath是文件路径则删除该文件，
+	 * 如果storePath是目录路径则删除该目录下的所有文件，
+	 * @param storePath
+	 */
+	public static void deleteFileOrPath(String storePath) {
+		File fileOrPath = new File(PathUtil.getImgBasePath() + storePath);
+		if(fileOrPath.exists()) {
+			if (fileOrPath.isDirectory()) {
+				File files[]= fileOrPath.listFiles();
+				for (int i = 0; i < files.length; i++) {
+					files[i].delete();
+				}
+			}
+			fileOrPath.delete();
+		}
+	}
 }
