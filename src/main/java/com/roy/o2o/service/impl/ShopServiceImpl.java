@@ -2,6 +2,7 @@ package com.roy.o2o.service.impl;
 
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import com.roy.o2o.enums.ShopStateEnum;
 import com.roy.o2o.exceptions.ShopOperationException;
 import com.roy.o2o.service.ShopService;
 import com.roy.o2o.util.ImageUtil;
+import com.roy.o2o.util.PageCalculator;
 import com.roy.o2o.util.PathUtil;
 
 @Service
@@ -26,6 +28,23 @@ public class ShopServiceImpl implements ShopService {
 
 	private static Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 
+
+	@Override
+	public ShopExecution getShopList(Shop shopCondition, int pageIndex, int pageSize) {
+		//pageIndex通过PageCalculator.calculateRowIndex()转换rowIndex值
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Shop> shopList = shopDao.queryShopList(shopCondition, rowIndex, pageSize);
+		int shopCount = shopDao.queryShopCount(shopCondition);
+		ShopExecution shopExecution = new ShopExecution();
+		if (shopList != null) {
+			shopExecution.setShopList(shopList);
+			shopExecution.setCount(shopCount);
+		} else {
+			shopExecution.setState(ShopStateEnum.INNER_ERROR.getState());
+		}
+		return shopExecution;
+	}
+	
 	@Override
 	@Transactional
 	public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) {
@@ -112,5 +131,6 @@ public class ShopServiceImpl implements ShopService {
 			}
 		}
 	}
+
 
 }

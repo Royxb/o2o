@@ -44,6 +44,53 @@ public class ShopManagementController {
 	@Autowired
 	private AreaService areaService;
 
+	@RequestMapping(value = "/getshopmanagementinfo", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopManagementInfo(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		long shopId = HttpServletRequestUtil.getLong(request, "shopId");
+		if (shopId <= 0) {
+			Object currentShopObj = request.getSession().getAttribute("currentShopObj");
+			if (currentShopObj == null) {
+				modelMap.put("redirect", true);
+				modelMap.put("url", "/o2o/shopadmin/shoplist");
+			} else {
+				Shop currentShop = (Shop) currentShopObj;
+				modelMap.put("redirect", false);
+				modelMap.put("shopId", currentShop.getShopId());
+			}
+		} else {
+			Shop currentShop = new Shop();
+			currentShop.setShopId(shopId);
+			request.getSession().setAttribute("currentShop", currentShop);
+			modelMap.put("redirect", false);
+		}
+		return modelMap;
+	}
+
+	@RequestMapping(value = "/getshoplist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopList(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		PersonInfo user = new PersonInfo();
+		user.setUserId(1L);
+		user.setName("test");
+		request.getSession().setAttribute("user", user);
+		user = (PersonInfo) request.getSession().getAttribute("user");
+		try {
+			Shop shopCondition = new Shop();
+			shopCondition.setOwner(user);
+			ShopExecution shopExecution = shopService.getShopList(shopCondition, 0, 100);
+			modelMap.put("shopList", shopExecution.getShopList());
+			modelMap.put("user", user);
+			modelMap.put("success", true);
+		} catch (Exception e) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", e.getMessage());
+		}
+		return modelMap;
+	}
+
 	@RequestMapping(value = "/getshopbyid", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getByShopId(HttpServletRequest request) {
@@ -129,7 +176,7 @@ public class ShopManagementController {
 				se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
 				if (se.getState() == ShopStateEnum.CHECK.getState()) {
 					modelMap.put("success", true);
-					//该用户可以操作的店铺列表
+					// 该用户可以操作的店铺列表
 					@SuppressWarnings("unchecked")
 					List<Shop> shopList = (List<Shop>) request.getSession().getAttribute("shopList");
 					if (shopList == null || shopList.size() == 0) {
