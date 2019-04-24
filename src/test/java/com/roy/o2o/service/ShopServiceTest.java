@@ -30,14 +30,13 @@ public class ShopServiceTest extends BaseTest {
 		Shop shop = new Shop();
 		shop.setShopId(1L);
 		shop.setShopName("修改后的店铺名称");
-		File shopImg = new File("C:/Users/Haier/Desktop/1.jpg");
+		File shopImg = new File("C:/Users/DELL/Desktop/1.jpg");
 		InputStream inputStream = new FileInputStream(shopImg);
 		ShopExecution shopExecution = shopService.modifyShop(shop, inputStream, "1.jpg");
 		System.out.println("新的图片地址为：" + shopExecution.getShop().getShopImg());
 	}
 
 	@Test
-	@Ignore
 	public void testAddShop() throws Exception {
 		Shop shop = new Shop();
 		PersonInfo owner = new PersonInfo();
