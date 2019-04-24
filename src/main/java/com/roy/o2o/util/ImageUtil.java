@@ -45,7 +45,7 @@ public class ImageUtil {
 			logger.info(thumbnailInputStream.toString());
 			logger.info(basePath);
 			Thumbnails.of(thumbnailInputStream).size(1200, 1200)
-					.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.jpg")), 0.25f)
+					.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.png")), 0.25f)
 					.outputQuality(0.8f).toFile(dest);
 		} catch (IOException e) {
 			logger.error(e.getMessage());
@@ -92,7 +92,7 @@ public class ImageUtil {
 
 	public static void main(String[] args) throws IOException {
 		Thumbnails.of(new File("C:/Users/DELL/Desktop/img26.jpg")).size(1920, 1200)
-				.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.jpg")), 0.25f)
+				.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.png")), 0.25f)
 				.outputQuality(0.8f).toFile("C:/Users/DELL/Desktop/img26new.jpg");
 	}
 
