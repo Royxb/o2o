@@ -9,20 +9,21 @@ import java.util.Date;
  */
 public class ProductCategory {
 	//商品类别ID
-	private Long shopCategoryId;
+	private Long productCategoryId;
 	//商品ID
 	private Long shopId;
 	//商品类别名称
-	private String shopCategoryName;
+	private String productCategoryName;
 	//权重（优先级）
 	private Integer priority;
 	// 创建时间
 	private Date createTime;
-	public Long getShopCategoryId() {
-		return shopCategoryId;
+	
+	public Long getProductCategoryId() {
+		return productCategoryId;
 	}
-	public void setShopCategoryId(Long shopCategoryId) {
-		this.shopCategoryId = shopCategoryId;
+	public void setProductCategoryId(Long productCategoryId) {
+		this.productCategoryId = productCategoryId;
 	}
 	public Long getShopId() {
 		return shopId;
@@ -30,11 +31,11 @@ public class ProductCategory {
 	public void setShopId(Long shopId) {
 		this.shopId = shopId;
 	}
-	public String getShopCategoryName() {
-		return shopCategoryName;
+	public String getProductCategoryName() {
+		return productCategoryName;
 	}
-	public void setShopCategoryName(String shopCategoryName) {
-		this.shopCategoryName = shopCategoryName;
+	public void setProductCategoryName(String productCategoryName) {
+		this.productCategoryName = productCategoryName;
 	}
 	public Integer getPriority() {
 		return priority;
@@ -48,5 +49,4 @@ public class ProductCategory {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	
 }

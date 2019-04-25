@@ -7,14 +7,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.List;
+
+import javax.swing.filechooser.FileSystemView;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.roy.o2o.BaseTest;
-import com.roy.o2o.dao.ShopDao;
 import com.roy.o2o.dto.ShopExecution;
 import com.roy.o2o.entity.Area;
 import com.roy.o2o.entity.PersonInfo;
@@ -27,7 +27,12 @@ public class ShopServiceTest extends BaseTest {
 	@Autowired
 	private ShopService shopService;
 	
+	//当前用户桌面
+	File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
+	String desktopPath = desktopDir.getAbsolutePath();
+	
 	@Test
+	@Ignore
 	public void testGetShopList() {
 		Shop shopCondition = new Shop();
 		ShopCategory shopCategory = new ShopCategory();
@@ -39,12 +44,11 @@ public class ShopServiceTest extends BaseTest {
 	}
 
 	@Test
-	@Ignore
 	public void testModifyShop() throws ShopOperationException, FileNotFoundException {
 		Shop shop = new Shop();
 		shop.setShopId(1L);
 		shop.setShopName("修改后的店铺名称");
-		File shopImg = new File("C:/Users/Haier/Desktop/1.jpg");
+		File shopImg = new File(desktopDir + "/1.jpg");
 		InputStream inputStream = new FileInputStream(shopImg);
 		ShopExecution shopExecution = shopService.modifyShop(shop, inputStream, "1.jpg");
 		System.out.println("新的图片地址为：" + shopExecution.getShop().getShopImg());
@@ -72,7 +76,7 @@ public class ShopServiceTest extends BaseTest {
 		shop.setLastEditTime(new Date());
 		shop.setEnableStatus(ShopStateEnum.CHECK.getState());
 		shop.setAdvice("审核中");
-		File shopImg = new File("C:/Users/Haier/Desktop/img26.jpg");
+		File shopImg = new File(desktopDir + "/img26.jpg");
 		InputStream inputStream = new FileInputStream(shopImg);
 		ShopExecution shopExecution = shopService.addShop(shop, inputStream, shopImg.getName());
 		assertEquals(ShopStateEnum.CHECK.getState(), shopExecution.getState());
