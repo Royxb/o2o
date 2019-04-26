@@ -92,7 +92,7 @@ public class ProductCategoryManagementController {
 					productCategoryStateEnum.getStateInfo());
 		}
 	}
-	
+
 	/**
 	 * 添加商铺目录 ，使用@RequestBody接收前端传递过来的productCategoryList
 	 * 
@@ -113,13 +113,14 @@ public class ProductCategoryManagementController {
 		if (productCategoryList != null && productCategoryList.size() > 0) {
 			try {
 				// 批量插入
-				ProductCategoryExecution productCategoryExecution = productCategoryService.batchInsertProductCategory(productCategoryList);
+				ProductCategoryExecution productCategoryExecution = productCategoryService
+						.batchInsertProductCategory(productCategoryList);
 				if (productCategoryExecution.getState() == ProductCategoryStateEnum.SUCCESS.getState()) {
 					modelMap.put("success", true);
 				} else {
 					modelMap.put("success", false);
 					modelMap.put("errMsg", productCategoryExecution.getStateInfo());
-				}				
+				}
 			} catch (ProductCategoryOperationException e) {
 				modelMap.put("success", false);
 				modelMap.put("errMsg", e.toString());
@@ -129,7 +130,33 @@ public class ProductCategoryManagementController {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", "请至少输入一个商品类别");
 		}
-		
+		return modelMap;
+	}
+
+	@RequestMapping(value = "/removeproductcategory", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> removeProductCategory(Long productCategoryId, HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		if (productCategoryId != null && productCategoryId > 0) {
+			try {
+				Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+				ProductCategoryExecution productCategoryExecution = productCategoryService
+						.deleteProductCategory(productCategoryId, currentShop.getShopId());
+				if (productCategoryExecution.getState() == ProductCategoryStateEnum.SUCCESS.getState()) {
+					modelMap.put("success", true);
+				} else {
+					modelMap.put("success", false);
+					modelMap.put("errMsg", productCategoryExecution.getStateInfo());
+				}
+			} catch (ProductCategoryOperationException e) {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", e.toString());
+				return modelMap;
+			}
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "请至少输入一个商品类别");
+		}
 		return modelMap;
 	}
 }
