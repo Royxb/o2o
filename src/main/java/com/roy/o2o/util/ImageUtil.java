@@ -12,6 +12,8 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.roy.o2o.dto.ImageHolder;
+
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
@@ -32,25 +34,64 @@ public class ImageUtil {
 	 * @param targetAddr 图片存储路径
 	 * @return
 	 */
-	public static String generateThumbnail(InputStream thumbnailInputStream, String fileName, String targetAddr) {
+	public static String generateThumbnail(ImageHolder thumbnail, String targetAddr) {
 		// 获取随机文件名，防止文件重名
 		String realFileName = getRandomFileName();
 		// 获取文件扩展名
-		String extension = getFileExtension(fileName);
+		String extension = getFileExtension(thumbnail.getImageName());
 		// 在文件夹不存在时创建
 		makeDirPath(targetAddr);
+		//获取文件存储的相对路径（带文件名）
 		String relativeAddr = targetAddr + realFileName + extension;
+		//获取文件要保存到的目录路径
 		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
+		//调用Thumbnails生产带有水印的图片
 		try {
-			logger.info(thumbnailInputStream.toString());
+			logger.info(thumbnail.getImage().toString());
 			logger.info(basePath);
-			Thumbnails.of(thumbnailInputStream).size(1200, 1200)
+			Thumbnails.of(thumbnail.getImage()).size(200, 200)
 					.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.png")), 0.25f)
 					.outputQuality(0.8f).toFile(dest);
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
+		//返回图片相对路径地址
+		return relativeAddr;
+	}
+	
+	/**
+	 * 处理详情图，并返回新生成图片的相对路径
+	 * 
+	 * @param productImgHolder
+	 * @param dest
+	 * @return
+	 */
+	public static String generateNormalImg(ImageHolder thumbnail, String targetAddr) {
+		// 获取不重复的随机名
+		String realFileName = getRandomFileName();
+		//获取文件的拓展名，如png、jpg等
+		String extension = getFileExtension(thumbnail.getImageName());
+		//如果目标路径不存在，则自动创建
+		makeDirPath(targetAddr);
+		//获取文件存储的相对路径（带文件名）
+		String relativeAddr = targetAddr + realFileName + extension;
+		logger.debug("current relativeAddr is:" + relativeAddr);
+		//获取文件要保存到的目录路径
+		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
+		logger.debug("current complete ddr is:" + PathUtil.getImgBasePath() + relativeAddr);
+		//调用Thumbnails生产带有水印的图片
+		try {
+			logger.info(thumbnail.getImage().toString());
+			logger.info(basePath);
+			Thumbnails.of(thumbnail.getImage()).size(337, 640)
+					.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.png")), 0.25f)
+					.outputQuality(0.9f).toFile(dest);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+		//返回图片相对路径地址
 		return relativeAddr;
 	}
 
