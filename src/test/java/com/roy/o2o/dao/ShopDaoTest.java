@@ -50,7 +50,6 @@ public class ShopDaoTest extends BaseTest {
 	}
 	
 	@Test
-	@Ignore
 	public void testInsertShop() throws Exception {
 		Shop shop = new Shop();
 		PersonInfo owner = new PersonInfo();

@@ -1,4 +1,4 @@
-package com.roy.o2o.web.shopadmin;
+package com.roy.o2o.web.shopadmin.shop;
 
 import java.io.IOException;
 import java.util.ArrayList;

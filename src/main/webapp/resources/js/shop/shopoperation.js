@@ -21,6 +21,33 @@ $(function() {
 	} else {
 		getShopInitInfo();
 	}
+	
+
+	/*
+	 * 获取店铺初始化信息：店铺分类和区域信息列表
+	 */
+	function getShopInitInfo() {
+		$.getJSON(initUrl, function(data) {
+			// 数据存在
+			if (data.success) {
+				var tempHtml = "";
+				var tempAreaHtml = "";
+				// 迭代店铺分类列表
+				data.shopCategoryList.map(function(item, index) {
+					tempHtml += '<option data-id="' + item.shopCategoryId
+							+ '">' + item.shopCategoryName + '</option>';
+				});
+				// 迭代区域信息
+				data.areaList.map(function(item, index) {
+					tempAreaHtml += '<option data-id="' + item.areaId + '">'
+							+ item.areaName + '</option>';
+				});
+				$('#shop-category').html(tempHtml);
+				$('#area').html(tempAreaHtml);
+			}
+		})
+	}
+	
 	/*
 	 * 根据店铺ID获取店铺信息：店铺分类和区域信息列表
 	 */
@@ -56,31 +83,6 @@ $(function() {
 						.attr("selected", "selected");
 			} else {
 				$.toast(data.errMsg);
-			}
-		})
-	}
-
-	/*
-	 * 获取店铺初始化信息：店铺分类和区域信息列表
-	 */
-	function getShopInitInfo() {
-		$.getJSON(initUrl, function(data) {
-			// 数据存在
-			if (data.success) {
-				var tempHtml = "";
-				var tempAreaHtml = "";
-				// 迭代店铺分类列表
-				data.shopCategoryList.map(function(item, index) {
-					tempHtml += '<option data-id="' + item.shopCategoryId
-							+ '">' + item.shopCategoryName + '</option>';
-				});
-				// 迭代区域信息
-				data.areaList.map(function(item, index) {
-					tempAreaHtml += '<option data-id="' + item.areaId + '">'
-							+ item.areaName + '</option>';
-				});
-				$('#shop-category').html(tempHtml);
-				$('#area').html(tempAreaHtml);
 			}
 		})
 	}

@@ -1,4 +1,4 @@
-package com.roy.o2o.web.shopadmin;
+package com.roy.o2o.web.shopadmin.product;
 
 import javax.servlet.http.HttpServletRequest;
 
