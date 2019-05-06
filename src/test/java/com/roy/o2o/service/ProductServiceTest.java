@@ -30,7 +30,7 @@ public class ProductServiceTest extends BaseTest {
 
 	// 当前用户桌面
 	File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
-	String desktopPath = desktopDir.getAbsolutePath();
+	String desktopPath = desktopDir.getAbsolutePath()+"/";
 
 	@Test
 	public void testAddProduct() throws ProductOperationException, FileNotFoundException {
@@ -39,22 +39,22 @@ public class ProductServiceTest extends BaseTest {
 		Shop shop = new Shop();
 		shop.setShopId(1L);
 		ProductCategory productCategory = new ProductCategory();
-		productCategory.setProductCategoryId(1L);
+		productCategory.setProductCategoryId(3L);
 		product.setShop(shop);
 		product.setProductCategory(productCategory);
-		product.setProductName("测试商品1");
-		product.setProductDesc("测试商品1");
+		product.setProductName("U盘");
+		product.setProductDesc("U盘");
 		product.setPriority(20);
 		product.setCreateTime(new Date());
 		product.setEnableStatus(ProductStateEnum.SUCCESS.getState());
 		// 创建缩略图文件流
-		File thumbnailFile = new File(desktopPath + "/1.jpg");
+		File thumbnailFile = new File(desktopPath + "单反相机.jpg");
 		InputStream inputStream = new FileInputStream(thumbnailFile);
 		ImageHolder thumbnail = new ImageHolder(thumbnailFile.getName(), inputStream);
 		//创建两个商品详情图文件流并将他们添加到详情图列表中
-		File productImg = new File(desktopPath + "/1.jpg");
+		File productImg = new File(desktopPath + "推广图.jpg");
 		InputStream inputStream1 = new FileInputStream(productImg);
-		File productImg2 = new File(desktopPath + "/img26.jpg");
+		File productImg2 = new File(desktopPath + "推广图.jpg");
 		InputStream inputStream2 = new FileInputStream(productImg2);
 		List<ImageHolder> productImgList = new ArrayList<ImageHolder>();
 		productImgList.add(new ImageHolder(productImg.getName(), inputStream1));

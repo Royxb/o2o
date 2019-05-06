@@ -1,6 +1,6 @@
 $(function() {
 	// 获取此店铺下的商品列表的url
-	var listUrl = '/o2o/shopadmin/getproductlistbyshop?pageIndex=1&pageSize=999';
+	var listUrl = '/o2o/shopadmin/getproductlist?pageIndex=1&pageSize=999';
 	// 商品上/下架
 	var statusUrl = '/o2o/shopadmin/modifyproduct';
 

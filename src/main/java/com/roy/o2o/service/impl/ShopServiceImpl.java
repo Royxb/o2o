@@ -88,15 +88,6 @@ public class ShopServiceImpl implements ShopService {
 		return new ShopExecution(ShopStateEnum.CHECK, shop);
 	}
 
-	private void addShopImg(Shop shop, ImageHolder thumbnail) {
-		logger.info("Start addShopImg Add");
-		// 获取shop图片目录的相对值路径
-		String dest = PathUtil.getShopImagePath(shop.getShopId());
-		logger.info(dest);
-		String shopImgAddr = ImageUtil.generateThumbnail(thumbnail, dest);
-		shop.setShopImg(shopImgAddr);
-	}
-
 	@Override
 	public Shop getByShopId(long shopId) {
 		return shopDao.queryByShopId(shopId);
@@ -132,5 +123,14 @@ public class ShopServiceImpl implements ShopService {
 		}
 	}
 
+
+	private void addShopImg(Shop shop, ImageHolder thumbnail) {
+		logger.info("Start addShopImg Add");
+		// 获取shop图片目录的相对值路径
+		String dest = PathUtil.getShopImagePath(shop.getShopId());
+		logger.info(dest);
+		String shopImgAddr = ImageUtil.generateThumbnail(thumbnail, dest);
+		shop.setShopImg(shopImgAddr);
+	}
 
 }

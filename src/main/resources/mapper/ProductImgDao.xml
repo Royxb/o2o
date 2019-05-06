@@ -7,17 +7,17 @@
 		INSERT INTO tb_product_img (
 		img_addr,
 		img_desc,
-		product_id,
 		priority,
-		create_time
+		create_time,
+		product_id
 		) VALUES
 		<foreach collection="list" item="productImg" index="index" separator=",">
 			(
 			#{productImg.imgAddr},
 			#{productImg.imgDesc},
-			#{productImg.productId},
 			#{productImg.priority},
-			#{productImg.createTime}
+			#{productImg.createTime},
+			#{productImg.productId}
 			)
 		</foreach>
 	</insert>

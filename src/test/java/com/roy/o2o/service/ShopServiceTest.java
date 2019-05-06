@@ -10,8 +10,9 @@ import java.util.Date;
 
 import javax.swing.filechooser.FileSystemView;
 
-import org.junit.Ignore;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.roy.o2o.BaseTest;
@@ -24,6 +25,7 @@ import com.roy.o2o.entity.ShopCategory;
 import com.roy.o2o.enums.ShopStateEnum;
 import com.roy.o2o.exceptions.ShopOperationException;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ShopServiceTest extends BaseTest {
 	@Autowired
 	private ShopService shopService;
@@ -33,7 +35,6 @@ public class ShopServiceTest extends BaseTest {
 	String desktopPath = desktopDir.getAbsolutePath();
 	
 	@Test
-	@Ignore
 	public void testGetShopList() {
 		Shop shopCondition = new Shop();
 		ShopCategory shopCategory = new ShopCategory();
@@ -57,7 +58,6 @@ public class ShopServiceTest extends BaseTest {
 	}
 
 	@Test
-	@Ignore
 	public void testAddShop() throws Exception {
 		Shop shop = new Shop();
 		PersonInfo owner = new PersonInfo();

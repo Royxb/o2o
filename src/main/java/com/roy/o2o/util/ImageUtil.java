@@ -78,7 +78,7 @@ public class ImageUtil {
 		logger.debug("current relativeAddr is:" + relativeAddr);
 		//获取文件要保存到的目录路径
 		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
-		logger.debug("current complete ddr is:" + PathUtil.getImgBasePath() + relativeAddr);
+		logger.debug("current complete addr is:" + PathUtil.getImgBasePath() + relativeAddr);
 		//调用Thumbnails生产带有水印的图片
 		try {
 			logger.info(thumbnail.getImage().toString());
@@ -88,7 +88,8 @@ public class ImageUtil {
 					.outputQuality(0.9f).toFile(dest);
 		} catch (IOException e) {
 			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error("缩略图添加水印失败：" + e.toString());
+			throw new RuntimeException("缩略图添加水印失败：" + e.toString());
 		}
 		//返回图片相对路径地址
 		return relativeAddr;
