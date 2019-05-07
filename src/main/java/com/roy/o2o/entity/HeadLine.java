@@ -7,7 +7,7 @@ import java.util.Date;
  * @author Haier
  *
  */
-public class TopLine {
+public class HeadLine {
 	//头条ID
 	private Long lineId;
 	//头条标题名称
