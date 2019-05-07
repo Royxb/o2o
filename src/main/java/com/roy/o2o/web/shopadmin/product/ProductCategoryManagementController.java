@@ -50,7 +50,7 @@ public class ProductCategoryManagementController {
 		Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
 		List<ProductCategory> productCategorieList = null;
 		if (currentShop != null && currentShop.getShopId() > 0) {
-			productCategorieList = productCategoryService.getProductCategorieList(1L);
+			productCategorieList = productCategoryService.getProductCategoryList(1L);
 			logger.info(productCategorieList.get(0).getProductCategoryName());
 			logger.info(productCategorieList.get(0).getPriority().toString());
 			logger.info(productCategorieList.get(1).getProductCategoryName());

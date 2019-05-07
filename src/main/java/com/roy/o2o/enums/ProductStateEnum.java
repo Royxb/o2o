@@ -9,7 +9,8 @@ public enum ProductStateEnum {
 	NULL_PRODUCTID(-3002,"productId为空"),
 	NULL_PRODUCT(-3003,"Product信息为空"), 
 	EMPTY(-3004,"Product信息为空"), 
-	EDIT_ERROR(-3005,"编辑错误");
+	EDIT_ERROR(-3005,"编辑错误"), 
+	PRODUCT_ID_EMPTY(-3006,"productId为空");
 	
 	private int state;
 	private String stateInfo;

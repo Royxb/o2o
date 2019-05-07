@@ -14,7 +14,7 @@ public interface ProductCategoryService {
 	 * @param long shopId
 	 * @return List<ProductCategory>
 	 */
-	List<ProductCategory> getProductCategorieList(long shopId);
+	List<ProductCategory> getProductCategoryList(long shopId);
 
 	/**
 	 * 批量添加商品类别信息

@@ -22,7 +22,7 @@
 		</foreach>
 	</insert>
 		
-	<delete id="deleteProductByProductId">
+	<delete id="deleteProductImgByProductId">
 		DELETE FROM 
 			tb_product_img 
 		WHERE 

@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class ProductImg {
 	//商品图片ID
-	private Long producImgtId;
+	private Long productImgId;
 	//商品图片地址
 	private String imgAddr;
 	//商品图片描述
@@ -20,12 +20,11 @@ public class ProductImg {
 	private Date createTime;
 	//商品ID
 	private Long productId;
-	
-	public Long getProducImgtId() {
-		return producImgtId;
+	public Long getProductImgId() {
+		return productImgId;
 	}
-	public void setProducImgtId(Long producImgtId) {
-		this.producImgtId = producImgtId;
+	public void setProductImgId(Long productImgId) {
+		this.productImgId = productImgId;
 	}
 	public String getImgAddr() {
 		return imgAddr;
@@ -57,5 +56,4 @@ public class ProductImg {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
-	
 }

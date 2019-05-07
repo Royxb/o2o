@@ -16,7 +16,6 @@
 		<result column="create_time" property="createTime" />
 		<result column="last_edit_time" property="lastEditTime" />
 		<result column="enable_status" property="enableStatus" />
-
 		<!-- 一对一使用association product中的属性为productCategory， 通过数据库中的product_category_id关联起来的 
 			类型为 com.roy.o2o.entity.ProductCategory -->
 		<association property="productCategory"
@@ -26,7 +25,6 @@
 			<result column="product_category_name"
 				property="productCategoryName" />
 		</association>
-
 		<!-- 一对一使用association product中的属性为shop， 通过数据库中的shop_id关联起来的 类型为com.roy.o2o.entity.Shop -->
 		<association property="shop" column="shop_id"
 			javaType="com.roy.o2o.entity.Shop">
@@ -38,13 +36,45 @@
 		<collection property="productImgList" column="product_id"
 			ofType="com.roy.o2o.entity.ProductImg">
 			<id column="product_img_id" property="productImgId" />
-			<result column="pi_img_addr" property="piImgAddr" />
-			<result column="pi_img_desc" property="piImgDesc" />
+			<result column="detail_addr" property="imgAddr" />
+			<result column="img_desc" property="imgDesc" />
 			<result column="priority" property="priority" />
 			<result column="create_time" property="createTime" />
 			<result column="product_id" property="productId" />
 		</collection>
 	</resultMap>
+
+	<select id="queryByProductId" resultMap="productMap"
+		parameterType="Long">
+		SELECT
+		p.product_id,
+		p.product_name,
+		p.product_desc,
+		p.img_addr,
+		p.normal_price,
+		p.promotion_price,
+		p.priority,
+		p.create_time,
+		p.last_edit_time,
+		p.enable_status,
+		p.product_category_id,
+		p.shop_id,
+		pi.product_img_id,
+		pi.img_addr as detail_addr,
+		pi.img_desc,
+		pi.priority,
+		pi.create_time
+		FROM
+		tb_product p
+		LEFT JOIN
+		tb_product_img pi
+		ON
+		p.product_id =pi.product_id
+		WHERE
+		p.product_id = #{productId}
+		ORDER BY
+		pi.priority DESC
+	</select>
 
 	<insert id="insertProduct"
 		parameterType="com.roy.o2o.entity.Product" useGeneratedKeys="true"
@@ -67,42 +97,8 @@
 		#{productCategory.productCategoryId}, #{shop.shopId})
 	</insert>
 
-	<select id="queryByProductId" resultMap="productMap"
-		parameterType="long">
-		SELECT
-		p.product_id,
-		p.product_name,
-		p.product_desc,
-		p.img_addr,
-		p.normal_price,
-		p.promotion_price,
-		p.priority,
-		p.create_time,
-		p.last_edit_time,
-		p.enable_status,
-		p.product_category_id,
-		p.shop_id,
-		pi.product_img_id,
-		pi.img_addr as pi_img_addr,
-		pi.img_desc as
-		pi_img_desc,
-		pi.priority,
-		pi.create_time
-		FROM
-		tb_product p
-		<!-- 左连接LEFT JOIN，（即使该商品没有商品详情图片，也查询出来该商铺） -->
-		LEFT JOIN
-		tb_product_img pi
-		ON
-		p.product_id =pi.product_id
-		WHERE
-		p.product_id = #{productId}
-		ORDER BY
-		pi.priority ASC
-	</select>
-
-	<update id="updateProduct"
-		parameterType="com.roy.o2o.entity.Product">
+	<update id="updateProduct" parameterType="com.roy.o2o.entity.Product" 
+		keyProperty="product_id"  useGeneratedKeys="true">
 		UPDATE tb_product
 		<set>
 			<!-- 注意后面的逗号 -->

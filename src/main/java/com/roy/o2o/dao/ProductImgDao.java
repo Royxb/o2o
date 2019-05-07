@@ -27,5 +27,5 @@ public interface ProductImgDao {
 	 * @param productId
 	 * @return
 	 */
-	int deleteProductByProductId(long productId);
+	int deleteProductImgByProductId(long productId);
 }
