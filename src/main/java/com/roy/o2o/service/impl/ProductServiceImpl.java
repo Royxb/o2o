@@ -87,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
 		// 将页码转换为数据库的行数
 		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
 		// 获取商品列表分页信息
-		List<Product> productList = productDao.productList(productCondition, rowIndex, pageSize);
+		List<Product> productList = productDao.queryProductList(productCondition, rowIndex, pageSize);
 		// 获取商品总数
 		int productCount = productDao.queryProductCount(productCondition);
 		// 构建返回对象,并设值

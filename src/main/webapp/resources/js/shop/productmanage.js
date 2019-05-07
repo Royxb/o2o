@@ -1,9 +1,10 @@
 $(function() {
 	// 获取此店铺下的商品列表的url
-	var listUrl = '/o2o/shopadmin/getproductlist?pageIndex=1&pageSize=999';
+	var listUrl = '/o2o/shopadmin/getproductlistbyshop?pageIndex=1&pageSize=999';
 	// 商品上/下架
 	var statusUrl = '/o2o/shopadmin/modifyproduct';
-
+	getList();
+	
 	/**
 	 * 获取商品列表
 	 */
@@ -55,8 +56,6 @@ $(function() {
 			}
 		});
 	}
-
-	getList();
 	
 	/**
 	 * 商品列表绑定链接事件
@@ -66,13 +65,11 @@ $(function() {
 		// 点击“编辑”按钮
 		if (target.hasClass('edit')) {
 			window.location.href = '/o2o/shopadmin/productoperation?productId=' + e.currentTarget.dataset.id;
-		} 
-		// 点击“上/下架”按钮
-		else if (target.hasClass('status')) {
+		} else if (target.hasClass('status')) { 
+			// 点击“上/下架”按钮
 			changeItemStatus(e.currentTarget.dataset.id, e.currentTarget.dataset.status);
-		} 
-		// 点击“预览按钮”
-		else if (target.hasClass('preview')) {
+		} else if (target.hasClass('preview')) {
+			// 点击“预览按钮”
 			window.location.href = '/o2o/front/productdetail?productId=' + e.currentTarget.dataset.id;
 		}
 	});
@@ -84,7 +81,7 @@ $(function() {
 		var product = {};
 		product.productId = id;
 		product.enableStatus = enableStatus;
-		$.confirm('确定么?', function() {
+		$.confirm('确定么?',function() {
 			$.ajax({
 				url : statusUrl,
 				type : 'POST',

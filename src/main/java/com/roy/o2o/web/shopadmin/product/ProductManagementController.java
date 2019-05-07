@@ -144,9 +144,9 @@ public class ProductManagementController {
 	@ResponseBody
 	public Map<String, Object> modifyProdcut(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		boolean statusChang = HttpServletRequestUtil.getBoolean(request, "statusChang");
+		boolean statusChange = HttpServletRequestUtil.getBoolean(request, "statusChange");
 		// 验证码校验
-		if (!statusChang && !CodeUtil.checkVerifyCode(request)) {
+		if (!statusChange || !CodeUtil.checkVerifyCode(request)) {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", "输入了错误的验证码");
 			logger.info("输入了错误的验证码");
@@ -249,29 +249,29 @@ public class ProductManagementController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/getproductlist", method = RequestMethod.GET)
+	@RequestMapping(value = "/getproductlistbyshop", method = RequestMethod.GET)
 	@ResponseBody
-	private Map<String, Object> getProductList(HttpServletRequest request) {
+	private Map<String, Object> getProductListByShop(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		// 获取页码和每页数量
 		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
 		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
 		// 获取当前session中的店铺信息
-		Shop currentShop = (Shop) request.getSession().getAttribute("currentShopObj");
+		Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
 		// 空值判断
-		if (pageIndex > -1 && pageSize > -1 && currentShop != null && currentShop.getShopId() != null) {
+		if ((pageIndex > -1) && (pageSize > -1) && (currentShop != null) && (currentShop.getShopId() != null)) {
 			// 设值查询条件
 			long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
 			String productName = HttpServletRequestUtil.getString(request, "productName");
 			Product productCondition = compactProductCondition(currentShop.getShopId(), productCategoryId, productName);
 			// 查询商品列表和总数
-			ProductExecution productExecution = productService.getProductList(productCondition, 0, 999);
+			ProductExecution productExecution = productService.getProductList(productCondition, pageIndex, pageSize);
 			modelMap.put("productList", productExecution.getProductList());
 			modelMap.put("count", productExecution.getCount());
 			modelMap.put("success", true);
 		} else {
 			modelMap.put("success", false);
-			modelMap.put("errMsg", "缺少分页参数");
+			modelMap.put("errMsg", "缺少分页参数或shopId");
 		}
 		return modelMap;
 	}
@@ -290,7 +290,7 @@ public class ProductManagementController {
 		shop.setShopId(shopId);
 		productCondition.setShop(shop);
 		// 查询类别
-		if (productCategoryId != -1) {
+		if (productCategoryId != -1L) {
 			ProductCategory productCategory = new ProductCategory();
 			productCategory.setProductCategoryId(productCategoryId);
 			productCondition.setProductCategory(productCategory);

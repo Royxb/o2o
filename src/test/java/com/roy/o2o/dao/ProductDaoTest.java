@@ -50,9 +50,18 @@ public class ProductDaoTest extends BaseTest {
 	}
 	@Test
 	public void testBProductList() {
-		Product product = new Product();
-		product.setProductId(1L);
-		List<Product> productList = productDao.productList(product, 1, 99);
+		Product productCondition = new Product();
+		//分页查询，预期返回三条结果
+		List<Product> productList = productDao.queryProductList(productCondition, 0, 3);
+		assertEquals(3, productList.size());
+		//查询名称为“”的商品总数
+		int count = productDao.queryProductCount(productCondition);
+		assertEquals(4, count);
+		//使用商品名称模糊查询，预期返回两条数据
+		productCondition.setProductName("测试");
+		productList = productDao.queryProductList(productCondition, 0, 3);
+		assertEquals(0, productList.size());
+		count = productDao.queryProductCount(productCondition);
 		System.out.println("productList：" + productList.size());
 	}
 	@Test

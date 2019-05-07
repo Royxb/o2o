@@ -16,7 +16,7 @@ public interface ProductDao {
 	 * @param pageSize
 	 * @return
 	 */
-	List<Product> productList(@Param("productCondition") Product productCondition, @Param("beginIndex") int beginIndex,
+	List<Product> queryProductList(@Param("productCondition") Product productCondition, @Param("rowIndex") int beginIndex,
 			@Param("pageSize") int pageSize);
 
 	/**
