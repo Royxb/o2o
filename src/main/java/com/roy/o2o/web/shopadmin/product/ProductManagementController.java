@@ -146,7 +146,7 @@ public class ProductManagementController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		boolean statusChange = HttpServletRequestUtil.getBoolean(request, "statusChange");
 		// 验证码校验
-		if (!statusChange || !CodeUtil.checkVerifyCode(request)) {
+		if (!statusChange && !CodeUtil.checkVerifyCode(request)) {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", "输入了错误的验证码");
 			logger.info("输入了错误的验证码");
@@ -165,11 +165,7 @@ public class ProductManagementController {
 			// 若请求中存在文件流，则取出相关的文件（包括缩略图和详情图）
 			if (multipartResolver.isMultipart(request)) {
 				thumbnail = handleImage(request, productImgList);
-			} else {
-				modelMap.put("success", false);
-				modelMap.put("errMsg", "上传图片不能为空");
-				return modelMap;
-			}
+			} 
 		} catch (Exception e) {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", e.toString());

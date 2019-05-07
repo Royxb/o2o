@@ -187,4 +187,12 @@
 		WHERE product_category_id =
 		#{productCategoryId}
 	</update>
+	
+	<delete id="deleteProduct" parameterType="long">
+		DELETE FROM
+		tb_product
+		WHERE
+		product_id = #{productId}
+		AND shop_id = #{shopId}
+	</delete>
 </mapper>

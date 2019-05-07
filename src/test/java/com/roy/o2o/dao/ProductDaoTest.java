@@ -88,8 +88,8 @@ public class ProductDaoTest extends BaseTest {
 	}
 	@Test
 	public void testEUpdateProductCategoryToNull() {
-		long productId = 2;
-		Product product = productDao.queryByProductId(productId);
-		System.out.println("productImgSize：" + product.getProductImgList().size());
+		//将productCategoryId为2的商品类下面的商品的商品类别置为空
+		int effectedNum = productDao.updateProductCategoryToNull(2L);
+		assertEquals(1, effectedNum);
 	}
 }

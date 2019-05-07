@@ -51,7 +51,7 @@ public class ProductServiceTest extends BaseTest {
 		product.setCreateTime(new Date());
 		product.setEnableStatus(ProductStateEnum.SUCCESS.getState());
 		// 创建缩略图文件流
-		File thumbnailFile = new File(desktopPath + "单反相机.jpg");
+		File thumbnailFile = new File(desktopPath + "U盘.jpg");
 		InputStream inputStream = new FileInputStream(thumbnailFile);
 		ImageHolder thumbnail = new ImageHolder(thumbnailFile.getName(), inputStream);
 		//创建两个商品详情图文件流并将他们添加到详情图列表中
