@@ -8,6 +8,6 @@ import com.roy.o2o.entity.ShopCategory;
 
 public interface ShopCategoryDao {
 
-	List<ShopCategory> queryShopCategory(@Param("shopCategoryCondition")ShopCategory shopCategory);
+	List<ShopCategory> queryShopCategory(@Param("shopCategoryCondition")ShopCategory shopCategoryCondition);
 
 }

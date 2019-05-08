@@ -130,13 +130,7 @@ public class ImageUtil {
 		String nowTimeStr = sDateFormat.format(new Date());
 		return nowTimeStr + rannum;
 	}
-
-	public static void main(String[] args) throws IOException {
-		Thumbnails.of(new File("C:/Users/DELL/Desktop/img26.jpg")).size(1920, 1200)
-				.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.png")), 0.25f)
-				.outputQuality(0.8f).toFile("C:/Users/DELL/Desktop/img26new.jpg");
-	}
-
+	
 	/**
 	 * 判断storePath是文件的路径还是目录路径，
 	 * 如果storePath是文件路径则删除该文件，
