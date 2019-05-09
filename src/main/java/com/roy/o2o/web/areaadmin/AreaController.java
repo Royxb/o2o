@@ -1,4 +1,4 @@
-package com.roy.o2o.web.superadmin;
+package com.roy.o2o.web.areaadmin;
 
 import java.util.ArrayList;
 import java.util.HashMap;

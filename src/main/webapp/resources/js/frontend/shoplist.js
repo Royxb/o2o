@@ -1,20 +1,22 @@
-/**
- * 
- */
 $(function() {
 	var loading = false;
 	// 分页允许返回的最大条数，超过此数则禁止访问后台
 	var maxItems = 999;
 	// 一页返回的最大条数
-	var pageSize = 10;
+	var pageSize = 3;
 	// 获取店铺列表的URL
 	var listUrl = '/o2o/frontend/listshops';
-	// 获取店铺类别列表以及区域列表URL
+	// 获取店铺类别列表以及区域列表的URL
 	var searchDivUrl = '/o2o/frontend/listshopspageinfo';
 	// 页码
 	var pageNum = 1;
-	// 从地址栏URL重新尝试获取parent shop category id
+	// 从地址栏URL里尝试获取parent shop category id.
 	var parentId = getQueryString('parentId');
+	// 是否选择了子类
+	var selectedParent = false;
+	if (parentId){
+		selectedParent = true;
+	}
 	var areaId = '';
 	var shopCategoryId = '';
 	var shopName = '';
@@ -22,7 +24,6 @@ $(function() {
 	getSearchDivData();
 	// 预先加载10条店铺信息
 	addItems(pageSize, pageNum);
-
 	/**
 	 * 获取店铺类别列表以及区域列表信息
 	 * 
@@ -36,23 +37,23 @@ $(function() {
 						url,
 						function(data) {
 							if (data.success) {
-								// 获取后台返回的店铺类别列表
+								// 获取后台返回过来的店铺类别列表
 								var shopCategoryList = data.shopCategoryList;
-								var categoryHtml = '';
-								categoryHtml += '<a href="#" class="button" data-category-id="">全部类别</a>';
+								var html = '';
+								html += '<a href="#" class="button" data-category-id=""> 全部类别  </a>';
 								// 遍历店铺类别列表，拼接出a标签集
 								shopCategoryList
 										.map(function(item, index) {
-											categoryHtml += '<a href="#" class="button" data-category-id="'
+											html += '<a href="#" class="button" data-category-id='
 													+ item.shopCategoryId
-													+ '">'
+													+ '>'
 													+ item.shopCategoryName
 													+ '</a>';
 										});
 								// 将拼接好的类别标签嵌入前台的html组件里
-								$('#shoplist-search-div').html(categoryHtml);
+								$('#shoplist-search-div').html(html);
 								var selectOptions = '<option value="">全部街道</option>';
-								// 获取后台返回的区域信息列表
+								// 获取后台返回过来的区域信息列表
 								var areaList = data.areaList;
 								// 遍历区域信息列表，拼接出option标签集
 								areaList.map(function(item, index) {
@@ -60,7 +61,7 @@ $(function() {
 											+ item.areaId + '">'
 											+ item.areaName + '</option>';
 								});
-								// 将标签集添加到area列表里
+								// 将标签集添加进area列表里
 								$('#area-search').html(selectOptions);
 							}
 						});
@@ -73,7 +74,7 @@ $(function() {
 	 * @param pageIndex
 	 * @returns
 	 */
-	function addItems(pageSize, pageNum) {
+	function addItems(pageSize, pageIndex) {
 		// 拼接出查询的URL，赋空值默认就去掉这个条件的限制，有值就代表按这个条件去查询
 		var url = listUrl + '?' + 'pageIndex=' + pageIndex + '&pageSize='
 				+ pageSize + '&parentId=' + parentId + '&areaId=' + areaId
@@ -125,7 +126,7 @@ $(function() {
 			}
 		});
 	}
-	
+
 	// 下滑屏幕自动进行分页搜索
 	$(document).on('infinite', '.infinite-scroll-bottom', function() {
 		if (loading)
@@ -136,7 +137,7 @@ $(function() {
 	// 点击店铺的卡片进入该店铺的详情页
 	$('.shop-list').on('click', '.card', function(e) {
 		var shopId = e.currentTarget.dataset.shopId;
-		window.location.href = '/myo2o/frontend/shopdetail?shopId=' + shopId;
+		window.location.href = '/o2o/frontend/shopdetail?shopId=' + shopId;
 	});
 
 	// 选择新的店铺类别之后，重置页码，清空原先的店铺列表，按照新的类别去查询
@@ -200,4 +201,4 @@ $(function() {
 
 	// 初始化页面
 	$.init();
-})
+});
