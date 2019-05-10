@@ -23,7 +23,7 @@ import com.roy.o2o.util.HttpServletRequestUtil;
 
 @Controller
 @RequestMapping("/frontend")
-public class ShopDatailController {
+public class ShopDetailController {
 	
 	@Autowired
 	private ShopService shopService;
