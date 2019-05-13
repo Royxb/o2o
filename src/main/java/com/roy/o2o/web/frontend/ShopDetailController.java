@@ -90,9 +90,9 @@ public class ShopDetailController {
 			ProductExecution pExecution = productservice.getProductList(productCondition, pageIndex, pageSize);
 			modleMap.put("productList", pExecution.getProductList());
 			modleMap.put("count", pExecution.getCount());
-			modleMap.put("seccess", true);
+			modleMap.put("success", true);
 		} else {
-			modleMap.put("seccess", false);
+			modleMap.put("success", false);
 			modleMap.put("errMsg", "empty pageSize or pageIndex or shopId");
 		}		
 		return modleMap;
