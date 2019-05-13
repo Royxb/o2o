@@ -14,11 +14,6 @@
 <meta name="format-detection" content="telephone=no">
 
 <!-- Google Web Fonts -->
-
-<link rel="stylesheet" href="/dist/css/sm.css">
-<link rel="stylesheet" href="/dist/css/sm-extend.css">
-<link rel="stylesheet" href="/assets/css/demos.css">
-
 <link rel="apple-touch-icon-precomposed"
 	href="/assets/img/apple-touch-icon-114x114.png">
 <link rel="stylesheet"
@@ -27,79 +22,18 @@
 	href="https://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
 <link rel="stylesheet"
 	href="../resources/css/frontend/productdetail.css">
-<script>
-	var _hmt = _hmt || [];
-	(function() {
-		var hm = document.createElement("script");
-		hm.src = "//hm.baidu.com/hm.js?ba76f8230db5f616edc89ce066670710";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hm, s);
-	})();
-</script>
-
 </head>
 <body>
 	<div class="page-group">
 		<div id="page-infinite-scroll-bottom" class="page">
 			<header class="bar bar-nav">
-				<a class="button button-link button-nav pull-left back"
-					href="/demos/infinite-scroll"> <span class="icon icon-left"></span>
-					返回
-				</a>
 				<h1 class="title">底部无限滚动</h1>
 			</header>
-			<div class="content infinite-scroll" data-distance="100">
-				<div class="list-block">
-					<ul class="list-container">
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-						<li class="item-content"><div class="item-inner">
-								<div class="item-title">条目</div>
-							</div></li>
-					</ul>
-				</div>
-				<!-- 加载提示符 -->
-				<div class="infinite-scroll-preloader">
+			<div class="list-block" id="list-block"></div>
+			<!-- 加载提示符 -->
+			<!-- <div class="infinite-scroll-preloader">
 					<div class="preloader"></div>
-				</div>
-			</div>
+				</div> -->
 		</div>
 	</div>
 

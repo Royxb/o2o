@@ -3,7 +3,7 @@ $(function() {
 	// 分页允许返回的最大条数，超过此数则禁止访问后台
 	var maxItems = 999;
 	// 一页返回的最大条数
-	var pageSize = 1;
+	var pageSize = 10;
 	// 获取店铺列表的URL
 	var listUrl = '/o2o/frontend/listshops';
 	// 获取店铺类别列表以及区域列表的URL
@@ -79,13 +79,14 @@ $(function() {
 		// 设定加载符，若还在后台取数据则不能再次访问后台，避免多次重复加载
 		loading = true;
 		// 访问后台获取相应查询条件下的店铺列表
-		$.getJSON(url, function(data) {
+		$.getJSON(url,function(data) {
 			if (data.success) {
 				// 获取当前查询条件下店铺的总数
 				maxItems = data.count;
+				var shopList = data.shopList
 				var html = '';
 				// 遍历店铺列表，拼接出卡片集合
-				data.shopList.map(function(item, index) {
+				shopList.map(function(item, index) {
 					html += '' + '<div class="card" data-shop-id="'
 							+ item.shopId + '">' + '<div class="card-header">'
 							+ item.shopName + '</div>'

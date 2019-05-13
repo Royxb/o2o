@@ -79,7 +79,7 @@ public class ShopDetailController {
 		//获取店铺ID
 		long shopId = HttpServletRequestUtil.getLong(request, "shopId");
 		//空值判断
-		if (pageIndex > -1) {
+		if ((pageIndex > -1) && (pageSize > -1) && (shopId > -1)) {
 			//获取商品类别ID
 			long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
 			//获取模糊查询的商品名

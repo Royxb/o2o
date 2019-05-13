@@ -1,6 +1,3 @@
-/**
- * 
- */
 $(function() {
 	var loading = false;
 	// 分页允许返回的最大条数，超过此数则禁止访问后台
@@ -32,9 +29,7 @@ $(function() {
 			if (data.success) {
 				var shop = data.shop;
 				$('#shop-cover-pic').attr('src', shop.shopImg);
-				$('#shop-update-time').html(
-						new Date(shop.lastEditTime)
-								.Format("yyyy-MM-dd"));
+				$('#shop-update-time').html(new Date(shop.lastEditTime).Format("yyyy-MM-dd"));
 				$('#shop-name').html(shop.shopName);
 				$('#shop-desc').html(shop.shopDesc);
 				$('#shop-addr').html(shop.shopAddr);
@@ -56,7 +51,6 @@ $(function() {
 			}
 		});
 	}
-	
 	/**
 	 * 获取分页展示的商品列表信息
 	 * 
@@ -79,10 +73,9 @@ $(function() {
 				var html = '';
 				// 遍历商品列表，拼接出卡片集合
 				data.productList.map(function(item, index) {
-					html += '' + '<div class="card" data-product-id='
-							+ item.productId + '>'
-							+ '<div class="card-header">' + item.productName
-							+ '</div>' + '<div class="card-content">'
+					html += '' + '<div class="card" data-product-id='+ item.productId + '>'
+							+ '<div class="card-header">' + item.productName + '</div>' 
+							+ '<div class="card-content">'
 							+ '<div class="list-block media-list">' + '<ul>'
 							+ '<li class="item-content">'
 							+ '<div class="item-media">' + '<img src="'
@@ -124,34 +117,30 @@ $(function() {
 		addItems(pageSize, pageNum);
 	});
 	// 选择新的商品类别之后，重置页码，清空原先的商品列表，按照新的类别去查询
-	$('#shopdetail-button-div').on(
-			'click',
-			'.button',
-			function(e) {
-				// 获取商品类别Id
-				productCategoryId = e.target.dataset.productSearchId;
-				if (productCategoryId) {
-					// 若之前已选定了别的category,则移除其选定效果，改成选定新的
-					if ($(e.target).hasClass('button-fill')) {
-						$(e.target).removeClass('button-fill');
-						productCategoryId = '';
-					} else {
-						$(e.target).addClass('button-fill').siblings()
-								.removeClass('button-fill');
-					}
-					$('.list-div').empty();
-					pageNum = 1;
-					addItems(pageSize, pageNum);
-				}
-			});
+	$('#shopdetail-button-div').on('click','.button',function(e) {
+		// 获取商品类别Id
+		productCategoryId = e.target.dataset.productSearchId;
+		if (productCategoryId) {
+			// 若之前已选定了别的category,则移除其选定效果，改成选定新的
+			if ($(e.target).hasClass('button-fill')) {
+				$(e.target).removeClass('button-fill');
+				productCategoryId = '';
+			} else {
+				$(e.target).addClass('button-fill').siblings()
+						.removeClass('button-fill');
+			}
+			$('.list-div').empty();
+			pageNum = 1;
+			addItems(pageSize, pageNum);
+		}
+	});
 	// 点击商品的卡片进入该商品的详情页
 	$('.list-div').on(
 			'click',
 			'.card',
 			function(e) {
 				var productId = e.currentTarget.dataset.productId;
-				window.location.href = '/o2o/frontend/productdetail?productId='
-						+ productId;
+				window.location.href = '/o2o/frontend/productdetail?productId='+ productId;
 			});
 	// 需要查询的商品名字发生变化后，重置页码，清空原先的商品列表，按照新的名字去查询
 	$('#search').on('change', function(e) {

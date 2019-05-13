@@ -113,6 +113,7 @@ public class ShopListController {
 			ShopExecution sExecution = shopService.getShopList(shopCondition, pageIndex, pageSize);
 			modelMap.put("shopList",sExecution.getShopList());
 			modelMap.put("count",sExecution.getCount());
+			modelMap.put("success",true);
 		} else {
 			modelMap.put("success",false);
 			modelMap.put("errMsg","empty pageSize or pageIndex");
