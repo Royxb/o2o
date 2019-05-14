@@ -6,6 +6,7 @@ import java.security.SecureRandom;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 
+import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 public class DESUtil {
@@ -13,7 +14,7 @@ public class DESUtil {
 	private static Key key;
 	//设置密钥Key
 	private static String KEY_STR = "myKey";
-	private static String CHARSETNAME = "UTF_8";
+	private static String CHARSETNAME = "UTF-8";
 	private static String ALGORITHM = "DES";
 	
 	static {
@@ -57,5 +58,29 @@ public class DESUtil {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}		
+	}
+	
+	/**
+	 * 获取解密后的信息
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String getDecryptString(String str) {
+		//基于BASE64编码，接收byte[]并转换成String
+		BASE64Decoder base64decoder = new BASE64Decoder();
+		try {
+			//将字符串decode成byte[]
+			byte[] bytes = base64decoder.decodeBuffer(str);
+			//获取解密对象
+			Cipher cipher = Cipher.getInstance(ALGORITHM);
+			//初始化解密信息
+			cipher.init(Cipher.DECRYPT_MODE, key);
+			//解密
+			byte[] doFinal = cipher.doFinal(bytes);
+			return new String(doFinal,CHARSETNAME);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
