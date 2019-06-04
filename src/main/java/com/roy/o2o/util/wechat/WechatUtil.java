@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roy.o2o.dto.UserAccessToken;
 import com.roy.o2o.dto.WechatUser;
+import com.roy.o2o.entity.PersonInfo;
 
 /**
  * 微信工具类
@@ -107,6 +108,21 @@ public class WechatUtil {
         return user;
     }
 
+    /**
+     * 将WechatUser里的信息转换成PersonInfo的信息并返回PersonInfo的实体类
+     * 
+     * @param wechatUser
+     * @return
+     */
+    public static PersonInfo getPersonInfoFromRequest(WechatUser wechatUser) {
+		PersonInfo personInfo = new PersonInfo();
+		personInfo.setName(wechatUser.getNickName());
+		personInfo.setGender(wechatUser.getSex()+"");
+		personInfo.setProfileImg(wechatUser.getHeadimgurl());
+		personInfo.setEnableStatus(1);
+		return personInfo;
+	}
+    
     /**
      * 发起https请求并获取结果
      * 

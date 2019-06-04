@@ -1,7 +1,7 @@
 <html>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	window.location.href="/o2o/frontend/index";
-</script>
+</script> -->
 <body>
 <h2>Hello World!</h2>
 </body>

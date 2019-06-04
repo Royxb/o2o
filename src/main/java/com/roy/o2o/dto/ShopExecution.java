@@ -26,22 +26,22 @@ public class ShopExecution {
 	}
 	
 	//店铺操作失败的时候的构造器
-	public ShopExecution(ShopStateEnum sateEnum) {
-		this.state = sateEnum.getState();
-		this.stateInfo = sateEnum.getStateInfo();
+	public ShopExecution(ShopStateEnum stateEnum) {
+		this.state = stateEnum.getState();
+		this.stateInfo = stateEnum.getStateInfo();
 	}
 	
 	//店铺操作成功的时候的构造器
-	public ShopExecution(ShopStateEnum sateEnum,Shop shop) {
-		this.state = sateEnum.getState();
-		this.stateInfo = sateEnum.getStateInfo();
+	public ShopExecution(ShopStateEnum stateEnum,Shop shop) {
+		this.state = stateEnum.getState();
+		this.stateInfo = stateEnum.getStateInfo();
 		this.shop = shop;
 	}
 	
 	//店铺操作成功的时候的构造器
-	public ShopExecution(ShopStateEnum sateEnum,List<Shop> shopList) {
-		this.state = sateEnum.getState();
-		this.stateInfo = sateEnum.getStateInfo();
+	public ShopExecution(ShopStateEnum stateEnum,List<Shop> shopList) {
+		this.state = stateEnum.getState();
+		this.stateInfo = stateEnum.getStateInfo();
 		this.shopList = shopList;
 	}
 

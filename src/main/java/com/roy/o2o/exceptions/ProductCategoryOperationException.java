@@ -1,6 +1,6 @@
 package com.roy.o2o.exceptions;
 
-public class ProductCategoryOperationException extends Exception {
+public class ProductCategoryOperationException extends RuntimeException {
 
 	/**
 	 * 
