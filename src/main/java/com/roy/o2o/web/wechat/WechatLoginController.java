@@ -30,7 +30,7 @@ import com.roy.o2o.util.wechat.WechatUtil;
  */
 public class WechatLoginController {
 
-	private static Logger log = LoggerFactory.getLogger(WechatLoginController.class);
+	private static Logger logger = LoggerFactory.getLogger(WechatLoginController.class);
 
 	private static final String FRONTEND = "1";
 	private static final String SHOPEND = "2";
@@ -43,12 +43,12 @@ public class WechatLoginController {
 
 	@RequestMapping(value = "/logincheck", method = { RequestMethod.GET })
 	public String doGet(HttpServletRequest request, HttpServletResponse response) {
-		log.debug("weixin login get...");
+		logger.debug("weixin login get...");
 		// 获取微信公众号传输过来的code,通过code可获取access_token,进而获取用户信息
 		String code = request.getParameter("code");
 		// 这个state可以用来传我们自定义的信息，方便程序调用，这里也可以不用
 		String roleType = request.getParameter("state");
-		log.debug("weixin login code:" + code);
+		logger.debug("weixin login code:" + code);
 		WechatUser user = null;
 		String openId = null;
 		WechatAuth auth = null;
@@ -57,18 +57,18 @@ public class WechatLoginController {
 			try {
 				// 通过code获取access_token
 				token = WechatUtil.getUserAccessToken(code);
-				log.debug("weixin login token:" + token.toString());
+				logger.debug("weixin login token:" + token.toString());
 				// 通过token获取accessToken
 				String accessToken = token.getAccessToken();
 				// 通过token获取openId
 				openId = token.getOpenId();
 				// 通过access_token和openId获取用户昵称等信息
 				user = WechatUtil.getUserInfo(accessToken, openId);
-				log.debug("weixin login user:" + user.toString());
+				logger.debug("weixin login user:" + user.toString());
 				request.getSession().setAttribute("openId", openId);
 				auth = wechatAuthService.getWechatAuthByOpenId(openId);
 			} catch (Exception e) {
-				log.error("error in getUserAccessToken or getUserInfo or findByOpenId: " + e.toString());
+				logger.error("error in getUserAccessToken or getUserInfo or findByOpenId: " + e.toString());
 				e.printStackTrace();
 			}
 		}
@@ -91,13 +91,15 @@ public class WechatLoginController {
 				WechatAuthExecution wae = wechatAuthService.register(auth);
 				if (wae.getState() != WechatAuthStateEnum.SUCCESS.getState()) {
 					return null;
-				} else {
-					personInfo = personInfoService.getPersonInfoById(auth.getPersonInfo().getUserId());
-					request.getSession().setAttribute("user", personInfo);
-				}
+				} 
+			} else {
+				personInfo = personInfoService.getPersonInfoById(auth.getPersonInfo().getUserId());
+				logger.debug(personInfo.getName());
+				logger.debug(personInfo.getUserId().toString());
+				request.getSession().setAttribute("user", personInfo);
 			}
 		} catch (WechatAuthOperationException e) {
-			log.error("error in getPersonInfo: " + e.toString());
+			logger.error("error in getPersonInfo: " + e.toString());
 			e.printStackTrace();
 		}
 		// 若用户点击的是前端展示系统页就进入前端展示系统

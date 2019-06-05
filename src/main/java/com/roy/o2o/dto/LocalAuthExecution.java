@@ -3,8 +3,7 @@ package com.roy.o2o.dto;
 import java.util.List;
 
 import com.roy.o2o.entity.LocalAuth;
-import com.roy.o2o.entity.PersonInfo;
-import com.roy.o2o.enums.PersonInfoStateEnum;
+import com.roy.o2o.enums.LocalAuthStateEnum;
 
 public class LocalAuthExecution {
 	// 结果状态
@@ -27,20 +26,20 @@ public class LocalAuthExecution {
 	}
 	
 	//操作失败的构造器
-	public LocalAuthExecution(PersonInfoStateEnum stateEnum) {
+	public LocalAuthExecution(LocalAuthStateEnum stateEnum) {
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
 	}
 	
 	//操作成功的构造器
-	public LocalAuthExecution(PersonInfoStateEnum stateEnum,LocalAuth localAuth) {
+	public LocalAuthExecution(LocalAuthStateEnum stateEnum,LocalAuth localAuth) {
 		this.state = stateEnum.getState();
 		this.localAuth = localAuth;
 		this.stateInfo = stateEnum.getStateInfo();
 	}
 	
 	//操作成功的构造器
-	public LocalAuthExecution(PersonInfoStateEnum stateEnum,List<LocalAuth> localAuthList) {
+	public LocalAuthExecution(LocalAuthStateEnum stateEnum,List<LocalAuth> localAuthList) {
 		this.state = stateEnum.getState();
 		this.localAuthList = localAuthList;
 		this.stateInfo = stateEnum.getStateInfo();
