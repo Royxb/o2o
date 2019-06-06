@@ -45,6 +45,12 @@ public class ShopManagementController {
 	@Autowired
 	private AreaService areaService;
 
+	/**
+	 * 获取店铺管理信息
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/getshopmanagementinfo", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getShopManagementInfo(HttpServletRequest request) {
@@ -69,15 +75,17 @@ public class ShopManagementController {
 		return modelMap;
 	}
 
+	/**
+	 * 获取店铺列表
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/getshoplist", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getShopList(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");
-		if(user == null) {
-			modelMap.put("errMsg","非法操作!");
-			return modelMap;
-		}
 		try {
 			Shop shopCondition = new Shop();
 			shopCondition.setOwner(user);
@@ -92,6 +100,12 @@ public class ShopManagementController {
 		return modelMap;
 	}
 
+	/**
+	 * 通过shopId获取对应店铺信息
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/getshopbyid", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getByShopId(HttpServletRequest request) {
@@ -115,6 +129,11 @@ public class ShopManagementController {
 		return modelMap;
 	}
 
+	/**
+	 * 获取店铺分类信息
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/getshopinitinfo", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getShopInitInfo() {
@@ -135,6 +154,12 @@ public class ShopManagementController {
 		return modelMap;
 	}
 
+	/**
+	 * 注册店铺信息
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "registershop", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> registerShop(HttpServletRequest request) {
@@ -205,6 +230,12 @@ public class ShopManagementController {
 		// 3.返回结果
 	}
 
+	/**
+	 * 更新店铺信息
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "modifyshop", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> modifyShop(HttpServletRequest request) {

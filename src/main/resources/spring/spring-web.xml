@@ -26,16 +26,48 @@
 		<property name="prefix" value="/WEB-INF/html/"></property>
 		<property name="suffix" value=".html"></property>
 	</bean>
-	
+
 	<!-- 文件上传解析器 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8"></property>
-		<!-- 1024*1024*20  20M -->
+		<!-- 1024*1024*20 20M -->
 		<property name="maxUploadSize" value="20971520"></property>
 		<property name="maxInMemorySize" value="20971520"></property>
 	</bean>
 
 	<!-- 4.扫描web相关的bean -->
-	<context:component-scan base-package="com.roy.o2o.web" />
+	<context:component-scan
+		base-package="com.roy.o2o.web" />
+
+	<!-- 5.权限拦截器 -->
+	<mvc:interceptors>
+		<!-- 校验是否已登录了店家管理系统的拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/shopadmin/**" />
+			<bean id="ShopInterceptor"
+				class="com.roy.o2o.interceptor.shop.ShopLoginInterceptor" />
+		</mvc:interceptor>
+		<!-- 校验是否对该店铺有操作的拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/shopadmin/**" />
+			<!-- shoplist page -->
+			<mvc:exclude-mapping path="/shopadmin/shoplist" />
+			<mvc:exclude-mapping path="/shopadmin/logout" />
+			<!-- shopregister page -->
+			<mvc:exclude-mapping
+				path="/shopadmin/getshopinitinfo" />
+			<mvc:exclude-mapping
+				path="/shopadmin/registershop" />
+			<mvc:exclude-mapping
+				path="/shopadmin/shopoperation" />
+			<!-- shopmanage page -->
+			<mvc:exclude-mapping
+				path="/shopadmin/shopmanagement" />
+			<mvc:exclude-mapping
+				path="/shopadmin/getshopmanagementinfo" />
+			<bean id="ShopPermissionInterceptor"
+				class="com.roy.o2o.interceptor.shop.ShopPermissionInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
