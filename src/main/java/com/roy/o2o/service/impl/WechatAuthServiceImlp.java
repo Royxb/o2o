@@ -51,10 +51,12 @@ public class WechatAuthServiceImlp implements WechatAuthService {
 					wechatAuth.getPersonInfo().setEnableStatus(1);
 					PersonInfo personInfo = wechatAuth.getPersonInfo();
 					int effectedNum = personInfoDao.insertPersonInfo(personInfo);
-					wechatAuth.setPersonInfo(personInfo);
 					if (effectedNum <= 0) {
 						throw new WechatAuthOperationException("添加用户信息失败");
 					} 
+					wechatAuth.setPersonInfo(personInfo);
+					logger.debug("微信openId:" + wechatAuth.getOpenId());
+					logger.debug("微信userId:" + wechatAuth.getPersonInfo().getUserId());
 				} catch (Exception e) {
 					logger.error("insertPersonInfo error: " + e.toString());
 					throw new WechatAuthOperationException("insertPersonInfo error: " + e.getMessage());

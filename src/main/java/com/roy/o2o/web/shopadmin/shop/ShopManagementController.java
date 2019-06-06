@@ -74,6 +74,10 @@ public class ShopManagementController {
 	private Map<String, Object> getShopList(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");
+		if(user == null) {
+			modelMap.put("errMsg","非法操作!");
+			return modelMap;
+		}
 		try {
 			Shop shopCondition = new Shop();
 			shopCondition.setOwner(user);
@@ -200,31 +204,6 @@ public class ShopManagementController {
 		}
 		// 3.返回结果
 	}
-
-//	private static void inputStreamToFile(InputStream ins,File file) {
-//		FileOutputStream outs = null;
-//		try {
-//			outs = new FileOutputStream(file);
-//			int bytesRead = 0;
-//			byte[] buffer = new byte[1024];
-//			while ((bytesRead = ins.read(buffer)) != -1) {
-//				outs.write(buffer,0,bytesRead);
-//			}
-//		} catch (Exception e) {
-//			throw new RuntimeException("调用inputStreamToFile产生异常:" + e.getMessage());
-//		} finally {
-//			try {
-//				if (outs != null) {
-//					outs.close();
-//				}
-//				if (ins != null) {
-//					ins.close();
-//				}
-//			} catch (IOException e) {
-//				throw new RuntimeException("inputStreamToFile关闭io产生异常:" + e.getMessage());
-//			}
-//		}
-//	}
 
 	@RequestMapping(value = "modifyshop", method = RequestMethod.POST)
 	@ResponseBody

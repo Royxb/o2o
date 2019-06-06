@@ -87,8 +87,8 @@ public class WechatLoginController {
 					personInfo.setUserType(2);
 				}
 				auth.setPersonInfo(personInfo);
-
 				WechatAuthExecution wae = wechatAuthService.register(auth);
+				logger.debug("微信openId: " +wae.getWechatAuth().getOpenId());
 				if (wae.getState() != WechatAuthStateEnum.SUCCESS.getState()) {
 					return null;
 				} 
@@ -105,10 +105,8 @@ public class WechatLoginController {
 		// 若用户点击的是前端展示系统页就进入前端展示系统
 		if (FRONTEND.contentEquals(roleType)) {
 			return "frontend/index";
-		} else if (SHOPEND.contentEquals(roleType)) {
-			return "shop/shoplist";
 		} else {
-			return null;
+			return "shop/shoplist";
 		}
 	}
 }

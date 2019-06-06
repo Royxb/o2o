@@ -20,6 +20,7 @@ import com.roy.o2o.util.CodeUtil;
 import com.roy.o2o.util.HttpServletRequestUtil;
 
 @Controller
+@RequestMapping("local")
 public class LocalAuthController {
 
 	@Autowired
