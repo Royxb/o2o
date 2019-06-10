@@ -3,10 +3,8 @@ package com.roy.o2o.entity;
 import java.util.Date;
 import java.util.List;
 
-/**
+/*
  * 商品类
- * @author Haier
- *
  */
 public class Product {
 	//商品ID
@@ -23,6 +21,8 @@ public class Product {
 	private String promotionPrice;
 	//权重（优先级）
 	private Integer priority;
+	//商品积分
+	private Integer point;
 	// 创建时间
 	private Date createTime;
 	// 更新时间
@@ -77,6 +77,12 @@ public class Product {
 	}
 	public void setPriority(Integer priority) {
 		this.priority = priority;
+	}
+	public Integer getPoint() {
+		return point;
+	}
+	public void setPoint(Integer point) {
+		this.point = point;
 	}
 	public Date getCreateTime() {
 		return createTime;
