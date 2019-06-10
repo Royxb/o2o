@@ -58,7 +58,7 @@ $(function(){
 					loginCount++;
 					if (loginCount >=3){
 						//登录失败三次,需要验证码验证
-						$("#verigyPart").show();
+						$("#verifyPart").show();
 					}
 					$('#kaptcha_img').click();
 				}

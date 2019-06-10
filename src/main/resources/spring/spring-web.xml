@@ -53,7 +53,7 @@
 			<mvc:mapping path="/shopadmin/**" />
 			<!-- shoplist page -->
 			<mvc:exclude-mapping path="/shopadmin/shoplist" />
-			<mvc:exclude-mapping path="/shopadmin/logout" />
+			<mvc:exclude-mapping path="/shopadmin/getshoplist"/>
 			<!-- shopregister page -->
 			<mvc:exclude-mapping
 				path="/shopadmin/getshopinitinfo" />

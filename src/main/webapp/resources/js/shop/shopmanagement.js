@@ -18,6 +18,6 @@ $(function(){
             $('#productCategory').attr('href','/o2o/shopadmin/productcategorymanagement');
         }
     });
-
-
+    $('#shopInfo').attr('href','/o2o/shopadmin/shopoperation?shopId=' + shopId);
+    $('#productCategory').attr('href','/o2o/shopadmin/productcategorymanagement');
 });

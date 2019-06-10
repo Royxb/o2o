@@ -41,8 +41,4 @@ public class MD5 {
 			return null;
 		}
 	}
-
-	public static void main(String[] args) {
-		System.out.println(MD5.getMd5("admin"));
-	}
 }
